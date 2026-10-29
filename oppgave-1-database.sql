@@ -11,6 +11,7 @@ CREATE TABLE customers (
     first_name VARCHAR(50) NOT NULL,
     last_name VARCHAR(50) NOT NULL,
     email VARCHAR(100) NOT NULL UNIQUE,
+    city VARCHAR(50) NOT NULL,
     registered_date DATE NOT NULL
 );
 
@@ -34,14 +35,14 @@ CREATE TABLE orders (
 );
 
 INSERT INTO customers
-VALUES (1, 'Ola', 'Nordmann', 'ola.nordmann@example.com', '2025-01-15'),
-       (2, 'Kari', 'Hansen', 'kari.hansen@example.com',  '2025-02-03'),
-       (3, 'Per', 'Johansen', 'per.johansen@example.com', '2025-02-18'),
-       (4, 'Anne', 'Larsen', 'anne.larsen@example.com', '2025-03-01'),
-       (5, 'Thomas', 'Andersen', 'thomas.andersen@example.com', '2025-03-12'),
-       (6, 'Maria', 'Nilsen', 'maria.nilsen@example.com', '2025-04-05'),
-       (7, 'Erik', 'Olsen', 'erik.olsen@example.com', '2025-04-21'),
-       (8, 'Ingrid', 'Berg', 'ingrid.berg@example.com', '2025-05-10');
+VALUES (1, 'Ola', 'Nordmann', 'ola.nordmann@example.com', 'Oslo', '2025-01-15'),
+       (2, 'Kari', 'Hansen', 'kari.hansen@example.com',  'Bergen' ,'2025-02-03'),
+       (3, 'Per', 'Johansen', 'per.johansen@example.com', 'Trondheim', '2025-02-18'),
+       (4, 'Anne', 'Larsen', 'anne.larsen@example.com','Oslo', '2025-03-01'),
+       (5, 'Thomas', 'Andersen', 'thomas.andersen@example.com', 'Stavanger', '2025-03-12'),
+       (6, 'Maria', 'Nilsen', 'maria.nilsen@example.com', 'Kristiansand', '2025-04-05'),
+       (7, 'Erik', 'Olsen', 'erik.olsen@example.com', 'Bergen', '2025-04-21'),
+       (8, 'Ingrid', 'Berg', 'ingrid.berg@example.com', 'Tromsø', '2025-05-10');
 
 INSERT INTO products
 VALUES (1, 'Laptop Pro 15', 'Computers', 12999.00, 8),
