@@ -26,3 +26,41 @@ SELECT order_id,
 FROM orders
 WHERE order_date BETWEEN '2025-07-01' AND '2025-07-31';
 
+-- Oppgave 3.4
+SELECT o.order_id,
+       c.first_name,
+       c.last_name,
+       p.product_name,
+       o.quantity,
+       p.price,
+       o.order_date,
+       o.status
+FROM orders AS o
+JOIN customers AS c ON o.customer_id = c.customer_id
+JOIN products AS p on o.product_id = p.product_id;
+
+-- Oppgave 3.5
+SELECT o.order_id,
+       c.first_name,
+       c.last_name,
+       p.product_name,
+       o.quantity,
+       p.price,
+       o.order_date,
+       o.status,
+       (p.price * o.quantity) AS total_price
+FROM orders AS o
+JOIN customers AS c ON o.customer_id = c.customer_id
+JOIN products AS p ON o.product_id = p.product_id
+ORDER BY total_price DESC;
+
+-- Oppgave 3.6
+SELECT c.first_name,
+       c.last_name,
+       p.product_name,
+       o.quantity,
+       p.price
+FROM orders AS o
+JOIN customers AS c on o.customer_id = c.customer_id
+JOIN products AS p ON o.product_id = p.product_id
+WHERE (p.price * o.quantity) > 2000
