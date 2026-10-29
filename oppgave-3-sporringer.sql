@@ -63,4 +63,26 @@ SELECT c.first_name,
 FROM orders AS o
 JOIN customers AS c on o.customer_id = c.customer_id
 JOIN products AS p ON o.product_id = p.product_id
-WHERE (p.price * o.quantity) > 2000
+WHERE (p.price * o.quantity) > 2000;
+
+-- Oppgave 3.7
+SELECT status, COUNT(*) AS order_count
+FROM orders
+GROUP BY status;
+
+-- Oppgave 3.8
+SELECT category,
+       AVG(price) AS average_price
+FROM products
+GROUP BY category
+ORDER BY average_price DESC;
+
+-- Oppgave 3.9
+SELECT c.first_name,
+       c.last_name,
+       COALESCE(SUM(o.quantity), 0) AS quantity
+FROM customers AS c
+LEFT JOIN orders as o on c.customer_id = o.customer_id
+GROUP BY c.customer_id
+ORDER BY quantity DESC;
+
