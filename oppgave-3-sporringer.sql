@@ -110,7 +110,31 @@ SELECT c.first_name,
 FROM customers AS c
 JOIN orders AS o ON c.customer_id = o.customer_id
 GROUP BY c.customer_id
-HAVING total_orders > 1
+HAVING total_orders > 1;
+
+-- Oppgave 3.13
+SELECT c.first_name,
+       c.last_name
+FROM customers AS c
+LEFT JOIN orders AS o ON c.customer_id = o.customer_id
+WHERE o.order_id IS NULL;
+
+-- Oppgave 3.14
+SELECT p.product_name
+FROM products AS p
+LEFT JOIN orders AS o ON p.product_id = o.product_id
+WHERE o.order_id IS NULL;
+
+-- Oppgave 3.15
+SELECT c.first_name,
+       c.last_name,
+       SUM(p.price * o.quantity) AS total_order_value
+FROM orders AS o
+JOIN customers AS c ON o.customer_id = c.customer_id
+Join products AS p ON o.product_id = p.product_id
+GROUP BY c.customer_id
+ORDER BY total_order_value DESC
+LIMIT 1;
 
 
 
