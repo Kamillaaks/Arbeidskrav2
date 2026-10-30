@@ -59,7 +59,8 @@ SELECT c.first_name,
        c.last_name,
        p.product_name,
        o.quantity,
-       p.price
+       p.price,
+       (p.price * o.quantity) AS total_value
 FROM orders AS o
 JOIN customers AS c on o.customer_id = c.customer_id
 JOIN products AS p ON o.product_id = p.product_id
@@ -80,9 +81,37 @@ ORDER BY average_price DESC;
 -- Oppgave 3.9
 SELECT c.first_name,
        c.last_name,
-       COALESCE(SUM(o.quantity), 0) AS quantity
+       COUNT(o.order_id) AS orders
 FROM customers AS c
-LEFT JOIN orders as o on c.customer_id = o.customer_id
+LEFT JOIN orders AS o ON c.customer_id = o.customer_id
 GROUP BY c.customer_id
-ORDER BY quantity DESC;
+ORDER BY orders DESC;
+
+-- Oppgave 3.10
+SELECT p.product_name,
+       COALESCE(SUM(o.quantity), 0) AS quantity
+FROM products AS p
+LEFT JOIN orders AS o ON p.product_id = o.product_id
+GROUP BY p.product_id;
+
+-- Oppgave 3.11
+SELECT p.product_name,
+       COALESCE(SUM(o.quantity), 0) AS products_sold,
+       COALESCE(SUM(o.quantity * p.price), 0) AS total_value
+FROM products AS p
+LEFT JOIN orders AS o ON p.product_id = o.product_id
+GROUP BY p.product_id
+ORDER BY total_value DESC;
+
+-- Oppgave 3.12
+SELECT c.first_name,
+       c.last_name,
+       COUNT(o.order_id) AS total_orders
+FROM customers AS c
+JOIN orders AS o ON c.customer_id = o.customer_id
+GROUP BY c.customer_id
+HAVING total_orders > 1
+
+
+
 
