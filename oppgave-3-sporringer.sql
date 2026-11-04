@@ -206,4 +206,50 @@ SELECT product_name,
 FROM products
 WHERE category = 'Accessories';
 
+-- Oppgave 4.5
+SELECT product_name,
+       price,
+       stock
+FROM products
+WHERE stock < 15;
 
+UPDATE products
+SET stock = stock + 20
+WHERE stock < 15;
+
+SELECT product_name,
+       price,
+       stock
+FROM products
+WHERE product_name IN ('Laptop Pro 15', '27-inch monitor', 'Bluetooth speaker', 'Docking station', 'External SSD 2TB')
+
+-- Oppgave 4.6
+SELECT product_name,
+       price,
+       stock
+FROM products
+WHERE product_name = 'Gaming headset';
+
+UPDATE products
+SET price = price + (price * 15.0 / 100.0),
+    stock = stock + 10
+WHERE product_name = 'Gaming headset';
+
+-- Oppgave 4.7
+SELECT order_date,
+       order_id,
+       status
+FROM orders
+WHERE order_date < '2025-08-10' AND status = 'Shipped';
+
+UPDATE orders
+SET status = 'Delivered'
+WHERE order_date < '2025-08-10' AND status = 'Shipped';
+
+SELECT order_date,
+       order_id,
+       status
+FROM orders
+WHERE order_id IN (13, 14)
+
+-- Oppgave 4.8
