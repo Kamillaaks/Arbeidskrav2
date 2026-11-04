@@ -1,3 +1,4 @@
+-- Oppgave 3 - SELECT og utforsking av data
 USE nettbutikk;
 
 -- Oppgave 3.1
@@ -136,6 +137,73 @@ GROUP BY c.customer_id
 ORDER BY total_order_value DESC
 LIMIT 1;
 
+-- Oppgave 4 - INSERT, UPDATE, DELETE og transaksjoner
+-- Oppgave 4.1
+INSERT INTO customers (first_name, last_name, email, city, registered_date)
+VALUES ('Henrik', 'Solberg', 'henrik.solberg@example.com', 'Lillehammer', CURDATE());
 
+-- Kontrollspørring
+SELECT first_name,
+       last_name,
+       email,
+       city,
+       registered_date
+FROM customers
+WHERE email = 'henrik.solberg@example.com';
+
+-- Oppgave 4.2
+INSERT INTO products (product_name, category, price, stock)
+VALUES ('USB-C cable', 'Accessories', 199, 50),
+       ('Docking station', 'Accessories', 1899, 12),
+       ('External SSD 2TB', 'Storage', 1999, 8);
+
+-- Kontrollspørring
+SELECT product_name,
+       category,
+       price,
+       stock
+FROM products
+WHERE product_name IN ('USB-C cable', 'Docking station', 'External SSD 2TB');
+
+-- Oppgave 4.3
+SELECT customer_id,
+       first_name,
+       last_name,
+       email,
+       registered_date
+FROM customers
+WHERE email = 'henrik.solberg@example.com';
+
+SELECT product_id,
+       product_name,
+       price,
+       stock
+FROM products
+WHERE product_name IN ('USB-C cable', 'Docking station', 'External SSD 2TB');
+
+INSERT INTO orders (customer_id, product_id, quantity, order_date, status)
+VALUES (12, 12, 1, CURDATE(), 'Processing'),
+       (12, 11, 2, CURDATE(), 'Processing'),
+       (12, 13, 1, CURDATE(), 'Processing');
+
+SELECT c.first_name,
+       c.last_name,
+       p.product_name,
+       o.quantity
+FROM orders AS o
+JOIN customers AS c ON o.customer_id = c.customer_id
+JOIN products AS p ON o.product_id = p.product_id
+WHERE c.email = 'henrik.solberg@example.com';
+
+-- Oppgave 4.4
+UPDATE products
+SET price = price + (price * 8.0 / 100.0)
+WHERE category = 'Accessories';
+
+SELECT product_name,
+       category,
+       price
+FROM products
+WHERE category = 'Accessories';
 
 
