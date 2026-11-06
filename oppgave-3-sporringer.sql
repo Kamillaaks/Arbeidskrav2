@@ -132,7 +132,7 @@ SELECT c.first_name,
        SUM(p.price * o.quantity) AS total_order_value
 FROM orders AS o
 JOIN customers AS c ON o.customer_id = c.customer_id
-Join products AS p ON o.product_id = p.product_id
+JOIN products AS p ON o.product_id = p.product_id
 GROUP BY c.customer_id
 ORDER BY total_order_value DESC
 LIMIT 1;
