@@ -293,3 +293,44 @@ DELETE FROM products WHERE product_id = 14;
 
 DELETE FROM customers WHERE customer_id = 13;
 
+-- Oppgave 4.9
+-- Finner kunden og kontrollerer lagerbeholdningen før transaksjonen
+SELECT first_name,
+       last_name,
+       customer_id
+FROM customers
+WHERE email = 'maria.nilsen@example.com';
+
+SELECT product_name,
+       price,
+       stock,
+       product_id
+FROM products;
+
+-- Starter transaksjonen
+START TRANSACTION;
+-- Registrerer bestillingen og reduserer lagerbeholdningen
+INSERT INTO orders (customer_id, product_id, quantity, order_date, status)
+VALUES (6, 6, 1, CURDATE(), 'Processing');
+UPDATE products SET stock = stock - 1 WHERE product_id = 6;
+
+-- Kontrollerer begge endringene før COMMIT
+SELECT product_name,
+       stock
+FROM products
+WHERE product_id = 6;
+
+SELECT o.order_id,
+       o.customer_id,
+       o.product_id,
+       o.quantity,
+       o.order_date,
+       o.status,
+       p.product_name
+FROM orders AS o
+JOIN products AS p ON o.product_id = p.product_id
+JOIN customers AS c ON o.customer_id = c.customer_id
+WHERE c.email = 'maria.nilsen@example.com';
+
+-- Bekrefter transaksjonen
+COMMIT;
