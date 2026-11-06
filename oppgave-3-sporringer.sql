@@ -16,7 +16,7 @@ SELECT first_name,
        last_name,
        city
 FROM customers
-WHERE city in ('Oslo', 'Bergen', 'Trondheim')
+WHERE city IN ('Oslo', 'Bergen', 'Trondheim')
 ORDER BY city ASC, last_name ASC;
 
 -- Oppgave 3.3
