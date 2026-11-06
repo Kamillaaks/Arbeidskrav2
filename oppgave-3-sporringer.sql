@@ -221,7 +221,7 @@ SELECT product_name,
        price,
        stock
 FROM products
-WHERE product_name IN ('Laptop Pro 15', '27-inch monitor', 'Bluetooth speaker', 'Docking station', 'External SSD 2TB')
+WHERE product_name IN ('Laptop Pro 15', '27-inch monitor', 'Bluetooth speaker', 'Docking station', 'External SSD 2TB');
 
 -- Oppgave 4.6
 SELECT product_name,
@@ -250,6 +250,46 @@ SELECT order_date,
        order_id,
        status
 FROM orders
-WHERE order_id IN (13, 14)
+WHERE order_id IN (13, 14);
 
 -- Oppgave 4.8
+INSERT INTO customers (first_name, last_name, email, city, registered_date)
+VALUES ('Kari', 'Olsen', 'kari.olsen@example.com', 'Oslo', CURDATE());
+
+INSERT INTO products (product_name, category, price, stock)
+VALUES ('The Beast PC', 'Computers', 15999, 7);
+
+SELECT customer_id,
+       first_name,
+       last_name,
+       email,
+       registered_date
+FROM customers
+WHERE email = 'kari.olsen@example.com';
+
+SELECT product_id,
+       product_name,
+       price,
+       stock
+FROM products
+WHERE product_name = 'The Beast PC';
+
+INSERT INTO orders (customer_id, product_id, quantity, order_date, status)
+VALUES (13, 14, 1, CURDATE(), 'Processing');
+
+SELECT c.first_name,
+       c.last_name,
+       p.product_name,
+       o.quantity,
+       o.order_id
+FROM orders AS o
+JOIN customers AS c ON o.customer_id = c.customer_id
+JOIN products AS p ON o.product_id = p.product_id
+WHERE c.email = 'kari.olsen@example.com';
+
+DELETE FROM orders WHERE order_id = 22;
+
+DELETE FROM products WHERE product_id = 14;
+
+DELETE FROM customers WHERE customer_id = 13;
+
