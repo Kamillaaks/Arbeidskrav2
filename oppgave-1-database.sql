@@ -1,3 +1,4 @@
+-- Oppgave 1 - Opprett databasen og tabellene
 CREATE DATABASE IF NOT EXISTS nettbutikk;
 
 USE nettbutikk;
@@ -34,6 +35,7 @@ CREATE TABLE orders (
     FOREIGN KEY (product_id) REFERENCES products(product_id)
 );
 
+-- Oppgave 2 - Legg inn eksempeldata
 INSERT INTO customers
 VALUES (1, 'Ola', 'Nordmann', 'ola.nordmann@example.com', 'Oslo', '2025-01-15'),
        (2, 'Kari', 'Hansen', 'kari.hansen@example.com',  'Bergen' ,'2025-02-03'),
